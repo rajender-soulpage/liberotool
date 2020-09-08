@@ -15,7 +15,7 @@ function Canvas(props) {
     x: 0,
     y: 0,
     isDrawing: false,
-    lineWidth : 0
+    lineWidth: 0,
   });
 
   React.useEffect(() => {
@@ -39,35 +39,35 @@ function Canvas(props) {
     context.clearRect(0, 0, canvas.width, canvas.height);
   }, []);
 
-  React.useEffect(() => {
-    redrawAll();
-  }, [props.data]);
+  // React.useEffect(() => {
+  //   redrawAll();
+  // }, [props.data]);
 
   if (props.tool === "trash") {
     contextRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
   }
 
-  const redrawAll = () => {
-    if (state.elements.length === 0) {
-      return;
-    }
-    props.state.elements.forEach((item) => {
-      console.log(item);
-      if (item.name === "pencil") {
-        drawPencil(item.x1, item.x2, item.y1, item.y2);
-      }
-    });
-  };
+  // const redrawAll = () => {
+  //   if (state.elements.length === 0) {
+  //     return;
+  //   }
+  //   props.state.elements.forEach((item) => {
+  //     console.log(item);
+  //     if (item.name === "pencil") {
+  //       drawPencil(item.x1, item.x2, item.y1, item.y2);
+  //     }
+  //   });
+  // };
 
-  if (props.tool === "undo") {
-    // undo();
-    console.log("undo");
-    let array = [...state.elements];
-    let new_array = array.splice(array.length - 1, 0);
+  // if (props.tool === "undo") {
+  //   // undo();
+  //   console.log("undo");
+  //   let array = [...state.elements];
+  //   let new_array = array.splice(array.length - 1, 0);
 
-    setState({ ...state, elements: new_array });
-    redrawAll();
-  }
+  //   setState({ ...state, elements: new_array });
+  //   redrawAll();
+  // }
 
   const startDrawing = (event) => {
     console.log(event);
@@ -93,7 +93,6 @@ function Canvas(props) {
     let x1 = event.clientX - rect.left;
     let y1 = event.clientY - rect.top;
     if (props.tool === "pencil") {
-      // props.drawPencil(canvasRef.current,contextRef.current,state.x,state.y,x1,y1)
       drawPencil(state.x, state.y, x1, y1);
       setState({ ...state, x: x1, y: y1 });
     } else if (props.tool === "line") {
@@ -135,6 +134,7 @@ function Canvas(props) {
   };
 
   const drawLine = (x1, y1, x2, y2) => {
+    contextRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     contextRef.current.beginPath();
     contextRef.current.moveTo(x1, y1);
     contextRef.current.lineTo(x2, y2);
@@ -151,7 +151,7 @@ function Canvas(props) {
   };
 
   const drawRectangle = (x1, y1, x2, y2) => {
-    contextRef.current.clearRect(x1, y1,x2-x1,y2-y1);
+    contextRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     contextRef.current.beginPath();
     contextRef.current.strokeRect(x1, y1, x2 - x1, y2 - y1);
     contextRef.current.stroke();

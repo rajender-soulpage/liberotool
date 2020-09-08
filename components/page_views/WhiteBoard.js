@@ -6,8 +6,6 @@ import { Socket } from "phoenix-socket";
 export const ThemeContext = React.createContext(null);
 
 function WhiteBoard(props) {
-  const canvasRef = React.useRef(null);
-  const contextRef = React.useRef(null);
   const [state, setState] = React.useState({
     boards: [{ name: "board-1" }],
     isDrawing: false,
