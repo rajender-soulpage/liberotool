@@ -84,6 +84,7 @@ function Canvas(props) {
     if ((canvasRef.current.style.cursor = "crosshair")) {
       canvasRef.current.style.cursor = "auto";
     }
+ 
     setState({ ...state, isDrawing: false });
   };
 
@@ -97,12 +98,14 @@ function Canvas(props) {
     if (props.tool === "pencil") {
       drawPencil(state.x, state.y, x1, y1);
       setState({ ...state, x: x1, y: y1 });
+   
     } else if (props.tool === "line") {
       drawLine(state.x, state.y, x1, y1);
     } else if (props.tool === "rectangle") {
       drawRectangle(state.x, state.y, x1, y1);
     } else if (props.tool === "circle") {
       drawCircle(state.x, state.y, x1, y1);
+     
     } else if (props.tool === "ellipse") {
       drawEllipse(x1, y1, state.x, state.y);
     } else if (props.tool === "text") {
@@ -122,17 +125,17 @@ function Canvas(props) {
     let w = canvasRef.current.width;
     let h = canvasRef.current.height;
 
-    let data = {
-      name: "drawing",
-      room: "test",
-      data: {
-        x1: x1 / w,
-        y1: y1 / h,
-        x2: x2 / w,
-        y2: y2 / h,
-      },
-    };
-    props.handleElements(data);
+    // let data = {
+    //   name: "drawing",
+    //   room: "test",
+    //   data: {
+    //     x1: x1 / w,
+    //     y1: y1 / h,
+    //     x2: x2 / w,
+    //     y2: y2 / h,
+    //   },
+    // };
+    // props.handleElements(data);
   };
 
   const drawLine = (x1, y1, x2, y2) => {
@@ -170,7 +173,7 @@ function Canvas(props) {
 
   const drawCircle = (x1, y1, x2, y2) => {
     console.log(x1, y1, x2, y2);
-    contextRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    // contextRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
     let x = (x2 + x1) / 2;
     let y = (y2 + y1) / 2;
     let radius = Math.max(Math.abs(x2 - x1), Math.abs(y2 - y1)) / 2;
@@ -185,6 +188,7 @@ function Canvas(props) {
       y1: y1,
       y2: y2,
     };
+    console.log("in circle")
     setState({ ...state, elements: [...state.elements, data] });
   };
 
