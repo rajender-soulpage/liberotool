@@ -1,7 +1,11 @@
 import React from "react";
+// redux
+import { connect } from "react-redux";
 import { Tools, Canvas } from "components/page_views";
 import { Button, Row, Tab, Tabs, Col, Nav, Dropdown, FormControl, Form } from "react-bootstrap";
 import { Socket } from "phoenix-socket";
+//actions 
+import {activeBoard} from "lib/_actions/board"
 
 export const ThemeContext = React.createContext(null);
 
@@ -59,7 +63,7 @@ function WhiteBoard(props) {
         <Row>
           <Col md="2"></Col>
           <Col md="8">
-            <Tools handleTool={handleTool} handleLinewidth={handleLinewidth} />
+            <Tools />
           </Col>
           <Col md="2"></Col>
         </Row>
@@ -104,4 +108,15 @@ function WhiteBoard(props) {
   );
 }
 
-export default WhiteBoard;
+
+
+function mapStatesToProps(state) {
+  return {
+    board: state.board,
+    tool : state.tool
+  };
+}
+
+const mapDispatchToProps = { activeBoard };
+
+export default connect(mapStatesToProps, mapDispatchToProps)(WhiteBoard);

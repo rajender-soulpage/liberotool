@@ -2,6 +2,12 @@ import React from "react";
 // next imports
 import App from "next/app";
 import Router from "next/router";
+// next redux wrapper
+import withRedux from "next-redux-wrapper";
+// react redux
+import { Provider } from "react-redux";
+// store
+import configureStore from "lib/store";
 // styled Components
 import { ThemeProvider } from "styled-components";
 // Theme
@@ -36,20 +42,24 @@ Router.events.on("routeChangeError", () => {
 });
 
 class MyApp extends App {
+  
+
   render() {
-    const { Component, pageProps, err } = this.props;
+    const { Component, pageProps, err, store } = this.props;
     const Layout = Component.Layout || React.Fragment;
     const modifiedPageProps = { ...pageProps, err };
     return (
       <>
         <ThemeProvider theme={theme}>
-          <Layout>
-            <Component {...modifiedPageProps} />
-          </Layout>
+          <Provider store={store}>
+            <Layout>
+              <Component {...modifiedPageProps} />
+            </Layout>
+          </Provider>
         </ThemeProvider>
       </>
     );
   }
 }
 
-export default MyApp;
+export default withRedux(configureStore)(MyApp);

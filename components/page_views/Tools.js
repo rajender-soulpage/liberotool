@@ -1,8 +1,13 @@
 import React from "react";
+// redux
+import { connect } from "react-redux";
 //fontawesome icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { Button, Row, Tab, Tabs, Col, Nav, Dropdown, FormControl, Form } from "react-bootstrap";
+
+//actions 
+import {handleTool} from "lib/_actions/tool";
 
 function Tools(props) {
   const [tools] = React.useState([
@@ -116,4 +121,16 @@ function Tools(props) {
   );
 }
 
-export default Tools;
+
+
+function mapStatesToProps(state) {
+  return {
+    board: state.board,
+    tool : state.tool
+  };
+}
+
+const mapDispatchToProps = { handleTool };
+
+export default connect(mapStatesToProps, mapDispatchToProps)(Tools);
+

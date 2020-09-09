@@ -1,4 +1,6 @@
 import React from "react";
+// redux
+import { connect } from "react-redux";
 import { faEraser } from "@fortawesome/free-solid-svg-icons";
 
 import { ThemeContext } from "./WhiteBoard";
